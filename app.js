@@ -7,26 +7,24 @@ o imposto de renda a ser descontado do salario bruto total deve se considerar as
 versao: 07-Comandos de Decisão
 */
 
+const prompt = require("prompt-sync")();
 
+var nome = prompt("Digite seu nome:");
+var salario_bruto = parseFloat(prompt("Digite seu salario bruto: R$"));
+var dependentes = parseInt(prompt("Digite o numero de dependentes: "));
 
+var renda_percapita = salario_bruto / (dependentes + 1);
 
-const prompt = require('prompt-sync')();
-
-
-var nome = prompt('Digite seu nome:');
-var salario_bruto = parseFloat(prompt('Digite seu salario bruto: R$'));
-
-if (salario_bruto > 0.00 && salario_bruto <= 1903.98) {
-  var ir = salario_bruto * 0.05;
-  var salarioLiquido = salario_bruto - ir;
-  console.log(`seu salario liquido será R$${salarioLiquido}`);
-}else if (salario_bruto <= 2826.65){
+if (renda_percapita >= 500) {
+  if (salario_bruto > 0.0 && salario_bruto <= 1903.98) {
+    var ir = salario_bruto * 0.05;
+  } else if (salario_bruto <= 2826.65) {
     var ir = salario_bruto * 0.075;
-    var salarioLiquido = salario_bruto - ir
-    console.log(`${nome} seu salario será de R$${salarioLiquido.toFixed(3)}`);
-}else{
+  } else {
     var ir = salario_bruto * 0.015;
-    var salarioLiquido = salario_bruto - ir
-    console.log(`${nome} seu salario sera de R$${salarioLiquido}`);
-
-};
+  }
+} else {
+  var ir = 0;
+}
+var salarioLiquido = salario_bruto - ir;
+console.log(`${nome} seu salario será de R$${salarioLiquido}`);
