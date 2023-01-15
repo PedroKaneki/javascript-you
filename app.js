@@ -1,14 +1,21 @@
 const prompt = require("prompt-sync")();
 
+var salarios = [];
+var soma = 0;
+var media;
+var qtdMenor = 0;
+
 for (var i = 1; i <= 5; i++) {
-  console.log("Pessoa" + i);
+  console.log("Pessoa", i);
   var nome = prompt("Digite seu nome:");
   var salario_bruto = parseFloat(prompt("Digite seu salario bruto: R$"));
   var dependentes = parseInt(prompt("Digite o numero de dependentes: "));
 
-  for (var i = 1; i <= dependentes; i++) {
-    var salario_dependentes = parseFloat(prompt("Digite o salario dos dependentes: R$"));
-      salario_bruto = salario_bruto + salario_dependentes;
+  for (var d = 1; d <= dependentes; d++) {
+    var salario_dependentes = parseFloat(
+      prompt("Digite o salario dos dependentes: R$")
+    );
+    salario_bruto = salario_bruto + salario_dependentes;
   }
   var renda_percapita = salario_bruto / (dependentes + 1);
 
@@ -25,4 +32,16 @@ for (var i = 1; i <= 5; i++) {
   }
   var salarioLiquido = salario_bruto - ir;
   console.log(`${nome} seu salario será de R$${salarioLiquido}`);
+
+  salarios.push(salarioLiquido);
+  soma = soma + salarioLiquido;
 }
+
+media = soma / 5;
+for (var p = 0; p <= 4; p++) {
+  if (salarios[p] < media) {
+    qtdMenor = qtdMenor + 1;
+  }
+}
+console.log(`a Média dos salários líquidos são ${media} `);
+console.log(`São no total de ${qtdMenor} pessoa que não estão na média`);
