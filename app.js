@@ -1,21 +1,15 @@
-/*problema
-
-elabora um algoritmo para calcular o salario liquido de 5 pessoas Solicite que o usuario digite seu nome e o valor do seu salario bruto
-
-o imposto de renda a ser descontado do salario bruto total deve se considerar as seguintes regras: *salario bruto (de 0,00 até 1.903,98):5% *salario bruto (de 1.903.99 até 2.826,65):7,5% *salario bruto (a partir de 2.826,66):15%
-
-versao: 09-Comandos de Repetição
-*/
-
 const prompt = require("prompt-sync")();
 
-for (var i = 1; i<= 5; i++){
-
-  console.log('Pessoa' + i)
+for (var i = 1; i <= 5; i++) {
+  console.log("Pessoa" + i);
   var nome = prompt("Digite seu nome:");
   var salario_bruto = parseFloat(prompt("Digite seu salario bruto: R$"));
   var dependentes = parseInt(prompt("Digite o numero de dependentes: "));
 
+  for (var i = 1; i <= dependentes; i++) {
+    var salario_dependentes = parseFloat(prompt("Digite o salario dos dependentes: R$"));
+      salario_bruto = salario_bruto + salario_dependentes;
+  }
   var renda_percapita = salario_bruto / (dependentes + 1);
 
   if (renda_percapita >= 500) {
@@ -24,11 +18,11 @@ for (var i = 1; i<= 5; i++){
     } else if (salario_bruto <= 2826.65) {
       var ir = salario_bruto * 0.075;
     } else {
-      var ir = salario_bruto * 0.015;
+      var ir = salario_bruto * 0.15;
     }
   } else {
     var ir = 0;
   }
   var salarioLiquido = salario_bruto - ir;
   console.log(`${nome} seu salario será de R$${salarioLiquido}`);
-};
+}
