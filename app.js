@@ -19,6 +19,21 @@ for (var i = 1; i <= 5; i++) {
   }
   var renda_percapita = salario_bruto / (dependentes + 1);
 
+  var ir = calcular_ir(salario_bruto, renda_percapita);
+  var salarioLiquido = salario_bruto - ir;
+  console.log(`${nome} seu salario será de R$${salarioLiquido}`);
+
+  salarios.push(salarioLiquido);
+  soma = soma + salarioLiquido;
+}
+
+media = soma / 5;
+qtdMenor = calcular_qtd_menores(salarios,media);
+
+console.log(`a Média dos salários líquidos são ${media} `);
+console.log(`São no total de ${qtdMenor} pessoa que não estão na média`);
+
+function calcular_ir(salario_bruto, renda_percapita) {
   if (renda_percapita >= 500) {
     if (salario_bruto > 0.0 && salario_bruto <= 1903.98) {
       var ir = salario_bruto * 0.05;
@@ -30,18 +45,16 @@ for (var i = 1; i <= 5; i++) {
   } else {
     var ir = 0;
   }
-  var salarioLiquido = salario_bruto - ir;
-  console.log(`${nome} seu salario será de R$${salarioLiquido}`);
-
-  salarios.push(salarioLiquido);
-  soma = soma + salarioLiquido;
+  return ir;
 }
 
-media = soma / 5;
-for (var p = 0; p <= 4; p++) {
-  if (salarios[p] < media) {
-    qtdMenor = qtdMenor + 1;
+function calcular_qtd_menores(salarios, media) {
+  var qtdMenor = 0;
+  for (var p = 0; p <= 4; p++) {
+    if (salarios[p] < media) {
+      qtdMenor = qtdMenor + 1;
+    }
+    
   }
+  return qtdMenor;
 }
-console.log(`a Média dos salários líquidos são ${media} `);
-console.log(`São no total de ${qtdMenor} pessoa que não estão na média`);
